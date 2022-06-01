@@ -55,7 +55,7 @@ CREATE TABLE `users` (
     `email` varchar(255) UNIQUE NOT NULL,
     `city` varchar(255) DEFAULT NULL,
     `language` varchar(255) DEFAULT NULL,
-    `hashedPassword` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8;
 

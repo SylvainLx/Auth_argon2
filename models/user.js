@@ -60,17 +60,41 @@ const findByEmailWithDifferentId = (email, id) => {
     .then(([results]) => results[0]);
 };
 
-const create = ({ firstname, lastname, city, language, email, password }) => {
+const create = (data) => {
+  return db.query("INSERT INTO users SET ?", data).then(([result]) => {
+    const id = result.insertId;
+    return { ...data, id };
+  });
+};
+
+/*const addOne = (user) => {
+  const { firstname, email, hash } = user;
+
+  return db
+    .query("INSERT INTO users (firstname, email, password) VALUES (?,?,?)", [
+      firstname,
+      email,
+      hash,
+    ])
+    .then(([result]) => {
+      return { id: result.insertId, firstname, email };
+    });
+};
+
+const create2 = ({ firstname, lastname, city, language, email, password }) => {
   return hashPassword(password).then((hashedPassword) => {
     return db
-      .query("INSERT INTO users SET ?", {
-        firstname,
-        lastname,
-        city,
-        language,
-        email,
-        hashedPassword,
-      })
+      .query(
+        "INSERT INTO users (firstname, lastname, city, language, email, password) VALUES (?, ?, ?, ?, ?, ?)",
+        {
+          firstname,
+          lastname,
+          city,
+          language,
+          email,
+          hashedPassword,
+        }
+      )
       .then(([result]) => {
         const id = result.insertId;
         return {
@@ -83,7 +107,7 @@ const create = ({ firstname, lastname, city, language, email, password }) => {
         };
       });
   });
-};
+};*/
 
 const update = (id, newAttributes) => {
   return db.query("UPDATE users SET ? WHERE id = ?", [newAttributes, id]);
