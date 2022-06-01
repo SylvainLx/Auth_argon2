@@ -60,10 +60,21 @@ const findByEmailWithDifferentId = (email, id) => {
     .then(([results]) => results[0]);
 };
 
-const create = (data) => {
-  return db.query("INSERT INTO users SET ?", data).then(([result]) => {
-    const id = result.insertId;
-    return { ...data, id };
+const create = ({ firstname, lastname, city, language, email, password }) => {
+  return hashPassword(password).then((hashedPassword) => {
+    return db
+      .query("INSERT INTO users SET ?", {
+        firstname,
+        lastname,
+        city,
+        language,
+        email,
+        hashedPassword,
+      })
+      .then(([result]) => {
+        const id = result.insertId;
+        return { firstname, lastname, city, language, email, id };
+      });
   });
 };
 
