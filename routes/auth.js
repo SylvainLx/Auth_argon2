@@ -12,7 +12,7 @@ authRouter.post("/checkCredentials", (req, res) => {
           if (passwordIsCorrect) {
             res.status(200).send("checkCredential correct");
           } else {
-            res.status(401).send("Invalid checkCredential pass");
+            res.status(401).send("Invalid checkCredential");
           }
         }
       );
